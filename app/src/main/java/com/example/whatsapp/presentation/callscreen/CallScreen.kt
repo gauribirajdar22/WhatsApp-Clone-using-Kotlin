@@ -5,10 +5,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,15 +31,53 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.whatsapp.R
+import com.example.whatsapp.presentation.bottomnavigation.BottomNavigation
 
 @Composable
 @Preview(showSystemUi = true)
 fun CallScreen() {
+
+    val sampleCall = listOf(
+        Call(
+            image = R.drawable.sensei,
+            name = "Sensei",
+            time = "Yesterday 8:30 pm",
+            isMissed = true
+        ),
+        Call(
+            image = R.drawable.sunio,
+            name = "Sunio",
+            time = "Yesterday 9:30 pm",
+            isMissed = false
+        ),
+        Call(
+            image = R.drawable.sizuka,
+            name = "Sizuka",
+            time = "Yesterday 10:00 pm",
+            isMissed = false
+        ),
+        Call(image = R.drawable.gian, name = "Gian", time = "Yesterday 10:30 pm", isMissed = true),
+        Call(
+            image = R.drawable.nobitamom,
+            name = "Nobii",
+            time = "Yesterday 10:45 pm",
+            isMissed = false
+        ),
+        Call(
+            image = R.drawable.nobita,
+            name = "Nobita",
+            time = "Yesterday 10:50 pm",
+            isMissed = true
+        )
+
+    )
     var isSearching by remember {
         mutableStateOf(false)
     }
@@ -148,12 +193,62 @@ fun CallScreen() {
                 }
 
             }
-        }
+        },
+        bottomBar = {
+            BottomNavigation()
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { /*TODO*/ },
+                containerColor = colorResource(id = R.color.light_green),
+                modifier = Modifier.size(65.dp),
+                contentColor = Color.White
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.add_call),
+                    contentDescription = null,
+                    modifier=Modifier.size(24.dp)
+                )
+            }
+        },
     ) {
-        Column(modifier=Modifier.padding(it)){
+        Column(modifier = Modifier.padding(it)) {
+
+            Spacer(modifier = Modifier.height(16.dp))
             FavouriteSection()
 
+            Button(
+                onClick = {},
+                colors = ButtonDefaults.buttonColors(containerColor = colorResource(R.color.light_green)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Text(
+                    text = "Start a new call",
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "Recent",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(start = 16.dp, bottom = 8.dp)
+            )
+
+            LazyColumn {
+                items(sampleCall) { data ->
+                    CallItemDesign(data)
+
+                }
+            }
+
         }
+
 
     }
 }
