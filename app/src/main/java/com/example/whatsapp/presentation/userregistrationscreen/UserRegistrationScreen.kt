@@ -60,7 +60,8 @@ fun UserRegistrationScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(25.dp),
+
+            .padding(start = 25.dp, end = 25.dp, top = 50.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -75,14 +76,14 @@ fun UserRegistrationScreen() {
 
             Text(text = "WhatsApp will need to verify your phone number.")
             Spacer(modifier = Modifier.width(4.dp))
-            Text(text = "What's", color = colorResource(id = R.color.dark_green))
+
         }
 
-        Text(text = "my number?", color = colorResource(id = R.color.dark_green))
+        Text(text = "What's my number?", color = colorResource(id = R.color.dark_green))
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Updated Dropdown Fix
+
         Box {
             TextButton(onClick = { expanded = true }, modifier = Modifier.fillMaxWidth()) {
 
@@ -172,7 +173,8 @@ fun UserRegistrationScreen() {
             Text(
                 text = "Carrier charge may apply",
                 fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                color =Color.LightGray
+
             )
             Spacer(modifier = Modifier.height(26.dp))
 
